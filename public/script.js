@@ -1,18 +1,17 @@
 var socket = io();
 
-var btn = document.getElementById('btn');
-var inputmsg = document.getElementById('newmsg');
-var msglist = document.getElementById('limsg')
+let btn = document.getElementById('btn');
+let inputMsg = document.getElementById('newmsg');
+let msgList = document.getElementById('msglist');
 
-
-btn.onclick = function exec(){
-    socket.emit('msg_send',{
-        msg:inputmsg.value
+btn.onclick = function exec() {
+    socket.emit('msg_send', {
+        msg: inputMsg.value
     });
 }
 
-socket.on('allsend',(data)=>{
-    let limsg = document.createElement('li')
-    msglist.innerText = data.msg;
-    msglist.appendChild(limsg)
+socket.on('msg_rcvd', (data) => {
+    let limsg = document.createElement('li');
+    limsg.innerText = data.msg;
+    msgList.appendChild(limsg);
 })
